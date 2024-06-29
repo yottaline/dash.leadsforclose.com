@@ -14,8 +14,8 @@
              </li>
 
              <li class="list-group-item nav-support">
-                 <a class="link-dark d-block" href="/retailers/">
-                     <i class="bi bi-person-lines-fill text-secondary me-2"></i><b>Retailers</b>
+                 <a class="link-dark d-block" href="/ro_clients/">
+                     <i class="bi bi-person-lines-fill text-secondary me-2"></i><b>Request One</b>
                  </a>
              </li>
 
