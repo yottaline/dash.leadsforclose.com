@@ -19,10 +19,22 @@ Route::get('/', function () {
 })->middleware('auth');
 
 Route::middleware('auth')->group(function(){
+
     Route::prefix('ro_clients')->group(function(){
         Route::get('/', 'RoClientController@index');
         Route::post('load', 'RoClientController@load');
         Route::post('change_status', 'RoClientController@changeStatus');
+    });
+
+    Route::prefix('rt_clients')->group(function(){
+        Route::get('/', 'RtClientController@index');
+        Route::post('load', 'RtClientController@load');
+        Route::post('change_status', 'RtClientController@changeStatus');
+    });
+
+    Route::prefix('users')->group(function(){
+        Route::get('/', 'UserController@index');
+        Route::post('load', 'UserController@load');
     });
 });
 

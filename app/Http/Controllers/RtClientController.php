@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Ro_client;
+use App\Models\Rt_client;
 use Illuminate\Http\Request;
 
-class RoClientController extends Controller
+class RtClientController extends Controller
 {
     function __construct()
     {
@@ -14,29 +14,27 @@ class RoClientController extends Controller
 
     function index()
     {
-
-        return view('contents.request-one-client.index');
+        return view('contents.request-two-client.index');
     }
-
 
     function load(Request $request)
     {
         $param  = $request->q ? ['q' => $request->q] : [];
         $limit  = $request->limit;
         $lastId = $request->last_id;
-        if($request->code) $param[] = ['ro_code', $request->code];
+        if($request->code) $param[] = ['rt_code', $request->code];
 
-        echo json_encode(Ro_client::fetch(0, $param, $limit, $lastId));
+        echo json_encode(Rt_client::fetch(0, $param, $limit, $lastId));
     }
 
     function changeStatus(Request $request)
     {
         $i = 1;
         if($request->status == 1) $i = 0;
-        $result = Ro_client::submit($request->id,  ['ro_active' => $i]);
+        $result = Rt_client::submit($request->id,  ['rt_status' => $i], null);
         echo json_encode([
             'status' => boolval($result),
-            'data'   => $result ? Ro_client::fetch($request->id) : []
+            'data'   => $result ? Rt_client::fetch($request->id) : []
         ]);
     }
 }
