@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('rt_lastName', 100);
             $table->string('rt_email', 120);
             $table->string('rt_phone', 25);
-            $table->integer('rt_umberSeats')->unsigned();
+            $table->integer('rt_umber_seats')->unsigned();
             $table->string('rt_state', 255);
             $table->boolean('rt_status')->default('1');
             $table->dateTime('rt_created');
