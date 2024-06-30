@@ -18,7 +18,7 @@ class Rt_client extends Model
         'rt_lastName',
         'rt_email',
         'rt_phone',
-        'rt_umberSeats',
+        'rt_umber_seats',
         'rt_state',
         'rt_status',
         'rt_created'

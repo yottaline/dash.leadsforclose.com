@@ -15,8 +15,8 @@ class RtClientController extends Controller
         $request->validate([
             'f_name' => 'required',
             'l_name' => 'required',
-            'phone'  => 'required|numeric|unique:rt_clients,rt_phone',
-            'email'  => 'required|email|unique:rt_clients,rt_email',
+            'phone'  => 'required|numeric',
+            'email'  => 'required|email',
             'file.*' => 'required|file|mimes:xlsx,xls,csv',
         ]);
 
@@ -26,7 +26,7 @@ class RtClientController extends Controller
             'rt_lastName'   => $request->l_name,
             'rt_email'      => $request->email,
             'rt_phone'      => $request->phone,
-            'rt_umberSeats' => $request->um_seats,
+            'rt_umber_seats' => $request->um_seats,
             'rt_state'      => $request->seats,
             'rt_created'    => Carbon::now(),
         ];
