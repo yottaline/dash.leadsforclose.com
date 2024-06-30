@@ -17,7 +17,7 @@ class RtClientController extends Controller
             'l_name' => 'required',
             'phone'  => 'required|numeric|unique:rt_clients,rt_phone',
             'email'  => 'required|email|unique:rt_clients,rt_email',
-            'file.*' => 'required|file|mimes:xlsx,xls,csv,txt',
+            'file.*' => 'required|file|mimes:xlsx,xls,csv',
         ]);
 
         $params = [
@@ -36,7 +36,7 @@ class RtClientController extends Controller
         if ($request->file('file')) {
             foreach ($request->file('file') as $file) {
                 $fileName = uniqidReal(4) . '.' . $file->getClientOriginalExtension();
-                $file->move('attachments/'.$fileName);
+                $file->move('attachments/' . $fileName);
                 R_attachment::create([
                     'attach_reClient'  => $result->id,
                     'attach_file'      =>  $fileName,
