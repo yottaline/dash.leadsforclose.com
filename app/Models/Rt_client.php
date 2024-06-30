@@ -55,9 +55,7 @@ class Rt_client extends Model
             $status = $id ? self::where('rt_id', $id)->update($clientParam) : self::create($clientParam);
             $id = $id ? $id : $status->id;
             if (!empty($attParam)) {
-                for ($i = 0; $i < count($attParam); $i++) {
-                    $attParam[$i]['attach_reClient'] = $id;
-                }
+                $attParam['attach_reClient'] = $id;
                 R_attachment::insert($attParam);
             }
             DB::commit();

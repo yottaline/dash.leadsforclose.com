@@ -31,6 +31,7 @@ class RtClientController extends Controller
             'rt_created'    => Carbon::now(),
         ];
 
+
         $result = Rt_client::create($params);
 
         if ($request->file('file')) {
@@ -44,7 +45,6 @@ class RtClientController extends Controller
                 ]);
             }
         }
-        // $result = Rt_client::submit(null, $params, $attParam);
         echo json_encode(['status' => boolval($result)]);
     }
 }
