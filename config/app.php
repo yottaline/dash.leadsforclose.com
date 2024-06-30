@@ -7,7 +7,7 @@ return [
     'name' => env('APP_NAME', 'LeadsForClose'),
     'env' => env('APP_ENV', 'production'),
     'debug' => (bool) env('APP_DEBUG', false),
-    'url' => env('APP_URL', 'https://leadsforclose.com'),
+    'url' => env('APP_URL', 'https://dash.leadsforclose.com'),
     'asset_url' => env('ASSET_URL'),
     'timezone' => 'Africa/Cairo',
     'locale' => 'en',
