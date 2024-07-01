@@ -31,7 +31,7 @@ class RtClientController extends Controller
     {
         $i = 1;
         if($request->status == 1) $i = 0;
-        $result = Rt_client::submit($request->id,  ['rt_status' => $i], null);
+        $result = Rt_client::where('rt_id', $request->id)->update(['rt_status'=> $i]);
         echo json_encode([
             'status' => boolval($result),
             'data'   => $result ? Rt_client::fetch($request->id) : []

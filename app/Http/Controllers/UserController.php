@@ -30,8 +30,7 @@ class UserController extends Controller
 
     function submit(Request $request)
     {
-        $id = intval($request->id);
-
+        $id = $request->id;
         $param = [
             'user_name'    => $request->name,
             'user_email'   => $request->email,
@@ -46,10 +45,10 @@ class UserController extends Controller
             $param['user_modified_by'] = auth()->user()->id;
         }
 
-        $result = User::submit($param, $id);
+        $result = User::submit($id, $param);
         echo json_encode([
             'status' => boolval($result),
-            'data' => $result ? User::fetch($id) : [],
+            'data' => $result ? User::fetch($result) : [],
         ]);
     }
 }

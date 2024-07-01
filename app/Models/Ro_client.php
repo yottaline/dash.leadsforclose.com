@@ -38,6 +38,7 @@ class Ro_client extends Model
         if($params) $ro_clients->where($params);
 
         if($lastId) $ro_clients->where('ro_id', '<', $lastId);
+        if($id) $ro_clients->where('ro_id', $id);
 
         return $id ? $ro_clients->first() : $ro_clients->get();
     }

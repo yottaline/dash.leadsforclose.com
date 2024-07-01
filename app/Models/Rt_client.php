@@ -45,6 +45,8 @@ class Rt_client extends Model
 
         if($lastId) $rt_clients->where('rt_id', '<', $lastId);
 
+        if($id) $rt_clients->where('rt_id', $id);
+
         return $id ? $rt_clients->first() : $rt_clients->get();
     }
 
