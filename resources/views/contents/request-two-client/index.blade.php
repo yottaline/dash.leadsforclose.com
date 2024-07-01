@@ -148,12 +148,12 @@
 
             $scope.editStatus = (cleint) => {
                 var request = {
-                    id: cleint.ro_id,
+                    id: cleint.rt_id,
                     status: cleint.rt_status,
                     _token: '{{ csrf_token() }}'
                 };
 
-                $.post("/ro_clients/change_status", request, function(data) {
+                $.post("/rt_clients/change_status", request, function(data) {
                     if (data.status) {
                         toastr.success('Status updated successfully');
                         $scope.$apply(function() {

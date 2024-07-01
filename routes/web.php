@@ -35,6 +35,7 @@ Route::middleware('auth')->group(function(){
     Route::prefix('users')->group(function(){
         Route::get('/', 'UserController@index');
         Route::post('load', 'UserController@load');
+        Route::match(['post', 'put'], 'submit', 'UserController@submit');
     });
 });
 

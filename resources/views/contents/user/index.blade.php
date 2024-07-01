@@ -139,6 +139,7 @@
                                     contentType: false,
                                 }).done(function(data, textStatus, jqXHR) {
                                     var response = JSON.parse(data);
+
                                     scope.$apply(() => {
                                         scope.submitting = false;
                                         if (response.status) {

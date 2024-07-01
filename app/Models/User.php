@@ -68,6 +68,7 @@ class User extends Authenticatable
 
         if($params) $users->where($params);
         if($lastId) $users->where('id', '<', $lastId);
+        if($id) $users->where('id', $id);
 
         return $id ? $users->first() : $users->get()->all();
     }
@@ -75,6 +76,7 @@ class User extends Authenticatable
     static function submit($id, $param)
     {
         if($id) return self::where('id', $id)->update($param) ? $id : false;
-
+        $status = self::create($param);
+        return $status ? $status->id : false;
     }
 }
