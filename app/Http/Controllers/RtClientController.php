@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\R_attachment;
 use App\Models\Rt_client;
 use Illuminate\Http\Request;
 
@@ -27,14 +28,8 @@ class RtClientController extends Controller
         echo json_encode(Rt_client::fetch(0, $param, $limit, $lastId));
     }
 
-    function changeStatus(Request $request)
+    function GetAttachment(Request $request)
     {
-        $i = 1;
-        if($request->status == 1) $i = 0;
-        $result = Rt_client::where('rt_id', $request->id)->update(['rt_status'=> $i]);
-        echo json_encode([
-            'status' => boolval($result),
-            'data'   => $result ? Rt_client::fetch($request->id) : []
-        ]);
+        echo json_encode(R_attachment::fetch(0, [['attach_reClient', $request->id]]));
     }
 }

@@ -12,6 +12,7 @@ class RtClientController extends Controller
 {
     function create(Request $request)
     {
+
         $request->validate([
             'f_name' => 'required',
             'l_name' => 'required',
@@ -31,16 +32,16 @@ class RtClientController extends Controller
             'rt_created'    => Carbon::now(),
         ];
 
-
+        // return $request->file('file');
         $result = Rt_client::create($params);
 
         if ($request->file('file')) {
             foreach ($request->file('file') as $file) {
                 $fileName = uniqidReal(4) . '.' . $file->getClientOriginalExtension();
-                $file->move('attachments/' . $fileName);
+                $file->move('attachments/', $fileName);
                 R_attachment::create([
                     'attach_reClient'  => $result->id,
-                    'attach_file'      =>  $fileName,
+                    'attach_file'      => $fileName,
                     'attach_created'   => Carbon::now(),
                 ]);
             }

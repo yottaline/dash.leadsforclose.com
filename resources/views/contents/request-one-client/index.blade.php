@@ -1,5 +1,5 @@
 @extends('index')
-@section('title', 'Locations')
+@section('title', 'Request One')
 @section('search')
     <form id="nvSearch" role="search">
         <input type="search" name="q" class="form-control my-3 my-md-0 rounded-pill" placeholder="Search...">
@@ -44,7 +44,7 @@
                                     <tr>
                                         <th class="text-center">#</th>
                                         <th>Cleint</th>
-                                        <th class="text-center">Status</th>
+                                        {{-- <th class="text-center">Status</th> --}}
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -66,11 +66,11 @@
                                                 <span ng-bind="cleint.ro_phone" class="fw-normal"></span>
                                             </small>
                                         </td>
-                                        <td class="text-center">
+                                        {{-- <td class="text-center">
                                             <span ng-click="editStatus(cleint)" style="cursor:pointer"
                                                 class="badge bg-<%statusObject.color[cleint.ro_active]%> rounded-pill font-monospace p-2"><%statusObject.name[cleint.ro_active]%></span>
 
-                                        </td>
+                                        </td> --}}
                                         <td class="col-fit">
 
                                         </td>
@@ -149,21 +149,21 @@
                     _token: '{{ csrf_token() }}'
                 };
 
-                $.post("/ro_clients/change_status", request, function(data) {
-                    if (data.status) {
-                        toastr.success('Status updated successfully');
-                        $scope.$apply(function() {
-                            if (scope.updateCleint === false) {
-                                scope.list = data
-                                    .data;
-                                scope.load(true);
-                            } else {
-                                scope.list[scope
-                                    .updateCleint] = data.data;
-                            }
-                        });
-                    } else toastr.error("Error");
-                }, 'json');
+                // $.post("/ro_clients/change_status", request, function(data) {
+                //     if (data.status) {
+                //         toastr.success('Status updated successfully');
+                //         $scope.$apply(function() {
+                //             if (scope.updateCleint === false) {
+                //                 scope.list = data
+                //                     .data;
+                //                 scope.load(true);
+                //             } else {
+                //                 scope.list[scope
+                //                     .updateCleint] = data.data;
+                //             }
+                //         });
+                //     } else toastr.error("Error");
+                // }, 'json');
             };
             $scope.load();
             scope = $scope;

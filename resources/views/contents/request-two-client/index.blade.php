@@ -1,5 +1,5 @@
 @extends('index')
-@section('title', 'Locations')
+@section('title', 'Request Two')
 @section('search')
     <form id="nvSearch" role="search">
         <input type="search" name="q" class="form-control my-3 my-md-0 rounded-pill" placeholder="Search...">
@@ -49,7 +49,6 @@
                                         <th class="text-center">Phone</th>
                                         <th class="text-center">UM-Steats</th>
                                         <th class="text-center">State</th>
-                                        <th class="text-center">Status</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -66,17 +65,13 @@
                                         </td>
                                         <td ng-bind="cleint.rt_phone" class="text-center">
                                         </td>
-                                        <td ng-bind="cleint.rt_umberSeats" class="text-center">
+                                        <td ng-bind="cleint.rt_umber_seats" class="text-center">
                                         </td>
                                         <td ng-bind="cleint.rt_state" class="text-center">
                                         </td>
-                                        <td class="text-center">
-                                            <span ng-click="editStatus(cleint)" style="cursor:pointer"
-                                                class="badge bg-<%statusObject.color[cleint.rt_status]%> rounded-pill font-monospace p-2"><%statusObject.name[cleint.rt_status]%></span>
-
-                                        </td>
                                         <td class="col-fit">
-
+                                            <button class="btn btn-outline-primary btn-circle bi bi-folder-minus"
+                                                ng-click="showAttachment(cleint)"></button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -87,6 +82,35 @@
 
                     </div>
                 </div>
+
+                <div class="modal fade" id="attachment" tabindex="-1" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="a in attachments track by $index">
+                                            <td ng-bind="a.attach_file">
+                                            </td>
+                                            <td class="col-fit">
+                                                <a href="{{ asset('attachments/<%a.attach_file%>') }}"
+                                                    class="btn btn-outline-success btn-circle bi bi-cloud-arrow-down-fill"></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -101,16 +125,13 @@
             });
 
         app.controller('ngCtrl', function($scope) {
-            $scope.statusObject = {
-                name: ['Un visible', 'Visible'],
-                color: ['danger', 'success']
-            };
 
             $scope.submitting = false;
             $scope.noMore = false;
             $scope.loading = false;
             $scope.q = '';
             $scope.updateCleint = false;
+            $scope.attachments = false;
             $scope.list = [];
             $scope.last_id = 0;
 
@@ -146,29 +167,22 @@
                 }, 'json');
             }
 
-            $scope.editStatus = (cleint) => {
+            $scope.showAttachment = (cleint) => {
                 var request = {
                     id: cleint.rt_id,
-                    status: cleint.rt_status,
                     _token: '{{ csrf_token() }}'
                 };
+                $.post("/rt_clients/get_attachments", request, function(data) {
 
-                $.post("/rt_clients/change_status", request, function(data) {
-                    if (data.status) {
-                        toastr.success('Status updated successfully');
-                        $scope.$apply(function() {
-                            if (scope.updateCleint === false) {
-                                scope.list = data
-                                    .data;
-                                scope.load(true);
-                            } else {
-                                scope.list[scope
-                                    .updateCleint] = data.data;
-                            }
-                        });
-                    } else toastr.error("Error");
+                    $scope.$apply(function() {
+                        $scope.attachments = data;
+                        setTimeout($('#attachment').modal('show'), 10000)
+
+                    });
                 }, 'json');
+                // ;
             };
+
             $scope.load();
             scope = $scope;
         });
