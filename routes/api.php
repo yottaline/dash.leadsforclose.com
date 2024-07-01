@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::post('join_one', [RoClientController::class, 'register']);
+Route::post('join/request', [RoClientController::class, 'register']);
 Route::post('create', [RtClientController::class, 'create']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

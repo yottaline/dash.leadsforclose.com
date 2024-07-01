@@ -45,7 +45,7 @@ class UserController extends Controller
             $param['user_modified_by'] = auth()->user()->id;
         }
 
-        $result = User::submit($id, $param);
+        $result = User::submit($param, $id);
         echo json_encode([
             'status' => boolval($result),
             'data' => $result ? User::fetch($result) : [],

@@ -66,16 +66,16 @@ class User extends Authenticatable
             unset($params['q']);
         }
 
-        if($params) $users->where($params);
-        if($lastId) $users->where('id', '<', $lastId);
-        if($id) $users->where('id', $id);
+        if ($params) $users->where($params);
+        if ($lastId) $users->where('id', '<', $lastId);
+        if ($id) $users->where('id', $id);
 
         return $id ? $users->first() : $users->get()->all();
     }
 
-    static function submit($id, $param)
+    static function submit($param, $id = null)
     {
-        if($id) return self::where('id', $id)->update($param) ? $id : false;
+        if ($id) return self::where('id', $id)->update($param) ? $id : false;
         $status = self::create($param);
         return $status ? $status->id : false;
     }
