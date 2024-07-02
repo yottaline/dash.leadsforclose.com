@@ -14,4 +14,14 @@ class R_attachment extends Model
         'attach_reClient',
         'attach_created'
     ];
+
+    static function fetch($id = 0, $params)
+    {
+        $attachments = self::join('rt_clients', 'attach_reClient', 'rt_id');
+
+        if($params) $attachments->where($params);
+        if($id)     $attachments->where('attach_id', $id);
+
+        return $id ? $attachments->first() : $attachments->get();
+    }
 }

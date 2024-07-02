@@ -29,7 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('rt_clients')->group(function () {
         Route::get('/', 'RtClientController@index');
         Route::post('load', 'RtClientController@load');
-        Route::post('change_status', 'RtClientController@changeStatus');
+        Route::post('get_attachments', 'RtClientController@GetAttachment');
     });
 
     Route::prefix('users')->group(function () {
